@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<script src="easyXDM.min.js"></script>
+<script type="text/javascript">
+    easyXDM.DomHelper.requiresJSON("/json2.js");
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>
+ var rpc = new easyXDM.Rpc({
+ }, {
+   local: {
+     ajax: function(options, callback) {
+       // map success, error, etc within options.
+       var results = {};
+       $.each(["success", "error", "complete"], function(index, cbName) {
+         if (options[cbName] == 1) {
+           options[cbName] = function(args) {
+             results[cbName] = arguments;
+             // Save up results and send them once we are really done, since we
+             // can't call callback() more than once.
+             if (cbName == "complete") {
+               callback(results);
+             }
+           }
+         }
+       });
+       $.ajax(options);
+     }
+   }
+ });
+</script>
+</head>
+<body>
+<a href='/'>For info see here</a>
+</body>
+</html>

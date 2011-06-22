@@ -1,0 +1,26 @@
+<script src="easyXDM.debug.js"></script>
+<script type="text/javascript">
+    easyXDM.DomHelper.requiresJSON("/json2.js");
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="jsonp-sandboxer.js"></script>
+<script>
+
+$.ajax({
+  url: "https://api.twitter.com/1/users/show.json",
+  dataType: "jsonp",
+  timeout: 1,
+  data: {
+    screen_name: "j4cob"
+  },
+  success: function(data, textStatus, jqXHR) {
+    console.log("success", data);
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    console.log("error", arguments);
+  },
+  complete: function(jqXHR, textStatus){
+    console.log("complete", arguments);
+  }
+});
+</script>
